@@ -1,7 +1,8 @@
 {
   "name": "@clipboard-health/lib-b",
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "@clipboard-health/lib-a": "*"
   },
   "type": "commonjs",
   "main": "./src/index.js",

@@ -15,8 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@nx-release-repro/lib-a": ["packages/lib-a/src/index.ts"],
-      "@nx-release-repro/lib-b": ["packages/lib-b/src/index.ts"]
+      "@clipboard-health/lib-a": ["packages/lib-a/src/index.ts"],
+      "@clipboard-health/lib-b": ["packages/lib-b/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
