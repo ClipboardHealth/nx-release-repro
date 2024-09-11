@@ -1,16 +1,49 @@
 {
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
-    "production": [
-      "default"
-    ],
-    "sharedGlobals": [
-      "{workspaceRoot}/.github/workflows/ci.yml"
-    ]
+  "pluginsConfig": {
+    "@nx/js": {
+      "analyzeSourceFiles": true
+    }
   },
-  "nxCloudId": "66e1ffaba8be6503f3053b27"
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "extends": "nx/presets/npm.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": [
+      "default",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.js"
+    ],
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
+  },
+  "release": {
+    "projects": ["packages/*"],
+    "projectsRelationship": "independent",
+    "version": {
+      "generatorOptions": {
+        "currentVersionResolver": "git-tag",
+        "packageRoot": "dist/packages/{projectName}",
+        "specifierSource": "conventional-commits"
+      }
+    }
+  },
+  "targetDefaults": {
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/packages/{projectName}"
+      }
+    },
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint"
+      }
+    }
+  ]
 }
